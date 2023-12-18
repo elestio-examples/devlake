@@ -13,7 +13,5 @@ Deploy Apache DevLake server with CI/CD on Elestio
 You can open Apache DevLake UI here:
 
     URL: https://[CI_CD_DOMAIN]
-
-# First use
-
-You will need to register for your first use.
+    login: "admin"
+    password: "[ADMIN_PASSWORD]"

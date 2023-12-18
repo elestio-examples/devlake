@@ -25,6 +25,8 @@ environments:
   - key: "DB_LOGGING_LEVEL"
     value: "Error"
   - key: "PORT"
+    value: "8080"
+  - key: "MODE"
     value: "release"
   - key: "API_TIMEOUT"
     value: "120s"
@@ -53,3 +55,5 @@ lifeCycleConfig:
 webUI:
   - url: "https://[CI_CD_DOMAIN]"
     label: "Apache DevLake"
+    login: "admin"
+    password: "[ADMIN_PASSWORD]"

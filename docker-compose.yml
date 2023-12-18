@@ -8,32 +8,32 @@ services:
     ports:
       - 172.17.0.1:60276:3306
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_DATABASE: lake
-      MYSQL_USER: lake
-      MYSQL_PASSWORD: MYSQL_PASSWORD
-      TZ: UTC
-    command: --character-set-server=utf8mb4
-      --collation-server=utf8mb4_bin
-      --skip-log-bin
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=lake
+      - MYSQL_USER=lake
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      # TZ: UTC
+    # command: --character-set-server=utf8mb4
+    #   --collation-server=utf8mb4_bin
+    #   --skip-log-bin
 
-  grafana:
-    image: apache/devlake-dashboard:${SOFTWARE_VERSION_TAG}
-    ports:
-      - 172.17.0.1:62493:3000
-    volumes:
-      - ./grafana-storage:/var/lib/grafana
-    environment:
-      GF_SERVER_ROOT_URL: "https://${DOMAIN}/grafana"
-      GF_USERS_DEFAULT_THEME: "light"
-      MYSQL_URL: mysql:3306
-      MYSQL_DATABASE: lake
-      MYSQL_USER: lake
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      TZ: UTC
-    restart: always
-    depends_on:
-      - mysql
+  # grafana:
+  #   image: apache/devlake-dashboard:${SOFTWARE_VERSION_TAG}
+  #   ports:
+  #     - 172.17.0.1:62493:3000
+  #   volumes:
+  #     - ./grafana-storage:/var/lib/grafana
+  #   environment:
+  #     GF_SERVER_ROOT_URL: "https://${DOMAIN}/grafana"
+  #     GF_USERS_DEFAULT_THEME: "light"
+  #     MYSQL_URL: mysql:3306
+  #     MYSQL_DATABASE: lake
+  #     MYSQL_USER: lake
+  #     MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  #     TZ: UTC
+  #   restart: always
+  #   depends_on:
+  #     - mysql
 
   devlake:
     image: apache/devlake:${SOFTWARE_VERSION_TAG}
