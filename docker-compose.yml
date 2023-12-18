@@ -42,7 +42,6 @@ services:
     restart: always
     volumes:
       - ./devlake-log:/app/logs
-      - ./plugins:bin/plugins
     env_file:
       - ./.env
     environment:
