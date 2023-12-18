@@ -18,7 +18,7 @@ services:
       --skip-log-bin
 
   grafana:
-    image: devlake.docker.scarf.sh/apache/devlake-dashboard:v0.19.0
+    image: apache/devlake-dashboard:${SOFTWARE_VERSION_TAG}
     ports:
       - 172.17.0.1:62493:3000
     volumes:
@@ -36,7 +36,7 @@ services:
       - mysql
 
   devlake:
-    image: devlake.docker.scarf.sh/apache/devlake:v0.19.0
+    image: apache/devlake:${SOFTWARE_VERSION_TAG}
     ports:
       - 172.17.0.1:51569:8080
     restart: always
@@ -52,7 +52,7 @@ services:
       - mysql
 
   config-ui:
-    image: devlake.docker.scarf.sh/apache/devlake-config-ui:v0.19.0
+    image: apache/devlake-config-ui:${SOFTWARE_VERSION_TAG}
     ports:
       - 172.17.0.1:41164:4000
     env_file:
