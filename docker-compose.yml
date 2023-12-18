@@ -1,0 +1,67 @@
+version: "3"
+services:
+  mysql:
+    image: elestio/mysql:8.0
+    volumes:
+      - ./mysql-storage:/var/lib/mysql
+    restart: always
+    ports:
+      - 172.17.0.1:60276:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: lake
+      MYSQL_USER: lake
+      MYSQL_PASSWORD: MYSQL_PASSWORD
+      TZ: UTC
+    command: --character-set-server=utf8mb4
+      --collation-server=utf8mb4_bin
+      --skip-log-bin
+
+  grafana:
+    image: devlake.docker.scarf.sh/apache/devlake-dashboard:v0.19.0
+    ports:
+      - 172.17.0.1:62493:3000
+    volumes:
+      - ./grafana-storage:/var/lib/grafana
+    environment:
+      GF_SERVER_ROOT_URL: "https://${DOMAIN}/grafana"
+      GF_USERS_DEFAULT_THEME: "light"
+      MYSQL_URL: mysql:3306
+      MYSQL_DATABASE: lake
+      MYSQL_USER: lake
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: UTC
+    restart: always
+    depends_on:
+      - mysql
+
+  devlake:
+    image: devlake.docker.scarf.sh/apache/devlake:v0.19.0
+    ports:
+      - 172.17.0.1:51569:8080
+    restart: always
+    volumes:
+      - ./devlake-log:/app/logs
+      - ./plugins:bin/plugins
+    env_file:
+      - ./.env
+    environment:
+      LOGGING_DIR: /app/logs
+      TZ: UTC
+    depends_on:
+      - mysql
+
+  config-ui:
+    image: devlake.docker.scarf.sh/apache/devlake-config-ui:v0.19.0
+    ports:
+      - 172.17.0.1:41164:4000
+    env_file:
+      - ./.env
+    environment:
+      DEVLAKE_ENDPOINT: devlake:8080
+      GRAFANA_ENDPOINT: grafana:3000
+      TZ: UTC
+      ADMIN_USER: admin
+      ADMIN_PASS: ${ADMIN_PASSWORD}
+    depends_on:
+      - devlake
