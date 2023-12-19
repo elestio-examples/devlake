@@ -7,3 +7,5 @@ cat << EOT >> ./.env
 
 ENCRYPTION_SECRET=${ENCRYPTION_SECRET}
 EOT
+
+mkdir -p ./storage/grafana-storage
