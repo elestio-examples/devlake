@@ -2,4 +2,4 @@
 set -o allexport; source .env; set +o allexport;
 
 echo "Creating user..."
-sleep 30s;
+sleep 240s;
