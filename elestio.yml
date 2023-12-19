@@ -47,6 +47,8 @@ environments:
     value: "10000"
   - key: "PIPELINE_MAX_PARALLEL"
     value: "1"
+  - key: "SMTP_FROM_EMAIL"
+    value: "[DOMAIN]@vm.elestio.app"
 config:
   runTime: "dockerCompose"
   version: ""

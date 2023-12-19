@@ -22,6 +22,11 @@ services:
     environment:
       GF_SERVER_ROOT_URL: "https://${DOMAIN}/grafana"
       GF_USERS_DEFAULT_THEME: "light"
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      GF_SMTP_ENABLED: true
+      GF_SMTP_HOST: 172.17.0.1:25
+      GF_SMTP_FROM_ADDRESS: ${SMTP_FROM_EMAIL}
       MYSQL_URL: mysql:3306
       MYSQL_DATABASE: lake
       MYSQL_USER: lake
