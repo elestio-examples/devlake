@@ -53,6 +53,7 @@ services:
 
   config-ui:
     image: apache/devlake-config-ui:${SOFTWARE_VERSION_TAG}
+    restart: always
     ports:
       - 172.17.0.1:41164:4000
     env_file:
