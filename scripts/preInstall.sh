@@ -8,4 +8,7 @@ cat << EOT >> ./.env
 ENCRYPTION_SECRET=${ENCRYPTION_SECRET}
 EOT
 
+mkdir -p ./storage
 mkdir -p ./storage/grafana-storage
+mkdir -p ./storage/devlake-log
+chmod -R 777 ./storage/devlake-log
